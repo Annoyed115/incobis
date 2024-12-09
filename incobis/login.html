@@ -38,6 +38,26 @@
            
         </form>
     </div>
-    
+    <script>
+        document.getElementById('formLogin').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const correo = document.getElementById('correo').value;
+            const contrasena = document.getElementById('contrasena').value;
+
+            const response = await fetch('http://localhost/incobis/api/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ correo, contrasena })
+            });
+
+            const result = await response.json();
+            document.getElementById('mensaje').innerText = result.message || result.error;
+
+            if (result.message) {
+                window.location.href = 'incobis.html'; // Redirigir a la página principal
+            }
+        });
+    </script>
 </body>
 </html>
