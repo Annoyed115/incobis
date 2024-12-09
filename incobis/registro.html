@@ -48,5 +48,23 @@
            
         </form>
     </div>
+    <script>
+        document.getElementById('formRegistro').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const contrasena = document.getElementById('contrasena').value;
+
+            const response = await fetch('http://localhost/incobis/api/registro.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, correo, contrasena })
+            });
+
+            const result = await response.json();
+            document.getElementById('mensaje').innerText = result.message || result.error;
+        });
+    </script>
 </body>
 </html>
